@@ -26,7 +26,7 @@ class ReplyBox extends React.Component {
 
   updateValue(e) {
     this.setState({
-          value: e.target.value,
+      value: e.target.value,
     })
   }
 

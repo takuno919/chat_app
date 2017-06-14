@@ -15,8 +15,8 @@ class UserList extends React.Component {
 
   get initialState() {
     // 変更箇所、開始位置
-      return this.getStateFromStore()
-    }
+    return this.getStateFromStore()
+  }
 
   getStateFromStore() {
     const allMessages = MessagesStore.getAllChats()
@@ -47,7 +47,7 @@ class UserList extends React.Component {
   }
   changeOpenChat(id) {
     MessagesAction.changeOpenChat(id) // 追記
-    }
+  }
 
   render() {
     this.state.messageList.sort((a, b) => {

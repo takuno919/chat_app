@@ -3,7 +3,6 @@ import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
 import UserStore from '../stores/user' // 追記
 
-
 const messages = {
   2: {
     user: {
