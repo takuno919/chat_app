@@ -2,9 +2,10 @@ import React from 'react'
 // import _ from 'lodash'
 // import classNames from 'classnames'
 // import Utils from '../../utils'
-import MessagesStore from '../../stores/messages'
-// import UserStore from '../../stores/user'
-// import MessagesAction from '../../actions/messages' // 追記
+// import MessagesStore from '../../stores/messages'
+// import ChatStore from '../../stores/users'
+import UsersStore from '../../stores/users'
+import UserAction from '../../actions/users'
 
 class UserList extends React.Component {
 
@@ -14,30 +15,40 @@ class UserList extends React.Component {
   }
 
   get initialState() {
-    // 変更箇所、開始位置
     return this.getStateFromStore()
   }
 
   getStateFromStore() {
-    return {}
+    const users = UsersStore.getUsers()
+    return {
+      users: users,
+    }
   }
 
   componentWillMount() {
-    MessagesStore.onChange(this.onStoreChange.bind(this))
+    UsersStore.onChange(this.onStoreChange.bind(this))
   }
   componentWillUnmount() {
-    MessagesStore.offChange(this.onStoreChange.bind(this))
+    UsersStore.offChange(this.onStoreChange.bind(this))
   }
   onStoreChange() {
     this.setState(this.getStateFromStore())
   }
 
+  componentDidMount() {
+    UserAction.getUsers()
+  }
+
   render() {
-    const messages = null
+    const users = this.state.users
     return (
       <div className='user-list'>
         <ul className='user-list__list'>
-          { messages }
+          {users.map((user) => {
+            return (
+              <div key={user.id}>{user.name}</div>
+            )
+          })}
         </ul>
       </div>
     )

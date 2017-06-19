@@ -42,7 +42,7 @@ class MessagesBox extends React.Component {
           <ul className='message-box__list'>
             {messages.map((message) => {
               return (
-                <div>{message.content}</div>
+                <div key={message.id}>{message.content}</div>
               )
             })}
           </ul>

@@ -6,8 +6,9 @@ Rails.application.routes.draw do
 
   namespace :api, { format: 'json' } do
     resources :messages
+    resources :users
   end
 
   resources :messages
-
+  resources :users
 end
