@@ -1,10 +1,10 @@
 import React from 'react'
-import _ from 'lodash'
-import classNames from 'classnames'
-import Utils from '../../utils'
+// import _ from 'lodash'
+// import classNames from 'classnames'
+// import Utils from '../../utils'
 import MessagesStore from '../../stores/messages'
-import UserStore from '../../stores/user'
-import MessagesAction from '../../actions/messages' // 追記
+// import UserStore from '../../stores/user'
+// import MessagesAction from '../../actions/messages' // 追記
 
 class UserList extends React.Component {
 
