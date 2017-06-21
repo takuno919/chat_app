@@ -3,6 +3,13 @@ import Dispatcher from '../dispatcher'
 import {ActionTypes} from '../constants/app'
 
 export default {
+  setOpenChatId(id) {
+    Dispatcher.handleViewAction({
+      type: ActionTypes.SET_OPEN_CHAT_ID,
+      id: id,
+    })
+  },
+
   getUsers() {
     return new Promise((resolve, reject) => {
       request

@@ -1,6 +1,7 @@
 import React from 'react'
-import MessagesStore from '../../stores/messages'  // 追記
-import MessagesAction from '../../actions/messages' // 追記
+import MessagesStore from '../../stores/messages'
+import MessagesAction from '../../actions/messages'
+// import UserStore from '../../stores/users'
 
 class ReplyBox extends React.Component {
 

@@ -1,6 +1,5 @@
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
-// import UserStore from '../stores/user' // 追記
 import {ActionTypes} from '../constants/app'
 
 class UserStore extends BaseStore {

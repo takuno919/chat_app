@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'messages#index'
   get 'messages/new'
   get 'users/new'
+  get 'users/search'
 
   namespace :api, { format: 'json' } do
     resources :messages

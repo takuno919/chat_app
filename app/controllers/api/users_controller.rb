@@ -5,5 +5,9 @@ module Api
       @users = User.all
       render json: @users
     end
+
+    def search
+    end
+
   end
 end

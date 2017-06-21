@@ -2,7 +2,7 @@ import React from 'react'
 // import _ from 'lodash'
 // import classNames from 'classnames'
 // import Utils from '../../utils'
-// import MessagesStore from '../../stores/messages'
+import MessagesStore from '../../stores/messages'
 // import ChatStore from '../../stores/users'
 import UsersStore from '../../stores/users'
 import UserAction from '../../actions/users'
@@ -19,17 +19,19 @@ class UserList extends React.Component {
   }
 
   getStateFromStore() {
-    const users = UsersStore.getUsers()
     return {
-      users: users,
+      openChatId: MessagesStore.getOpenChatId(),
+      users: UsersStore.getUsers(),
     }
   }
 
   componentWillMount() {
     UsersStore.onChange(this.onStoreChange.bind(this))
+    MessagesStore.onChange(this.onStoreChange.bind(this))
   }
   componentWillUnmount() {
     UsersStore.offChange(this.onStoreChange.bind(this))
+    MessagesStore.offChange(this.onStoreChange.bind(this))
   }
   onStoreChange() {
     this.setState(this.getStateFromStore())
@@ -39,6 +41,10 @@ class UserList extends React.Component {
     UserAction.getUsers()
   }
 
+  handleUserListClick(user) {
+    UserAction.setOpenChatId(user.id)
+  }
+
   render() {
     const users = this.state.users
     return (
@@ -46,7 +52,12 @@ class UserList extends React.Component {
         <ul className='user-list__list'>
           {users.map((user) => {
             return (
-              <div key={user.id}>{user.name}</div>
+              <div key={user.id}
+                onClick={this.handleUserListClick.bind(this, user)}
+                style={{backgroundColor: user.id === this.state.openChatId ? 'blue' : 'initial'}}
+              >
+              {user.name}
+              </div>
             )
           })}
         </ul>
