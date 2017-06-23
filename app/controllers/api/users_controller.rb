@@ -7,6 +7,9 @@ module Api
     end
 
     def search
+      term = params[:term]
+      @users = User.where('name like ?', "%#{term}%")
+      render json: @users
     end
 
   end

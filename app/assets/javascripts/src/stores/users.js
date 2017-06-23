@@ -18,6 +18,16 @@ class UserStore extends BaseStore {
     if (!this.get('users')) this.setUsers([])
     return this.get('users')
   }
+
+  setSearchUsers(searchUsers) {
+    this.set('searchUsers', searchUsers)
+  }
+
+  getSearchUsers() {
+    if (!this.get('searchUsers')) this.setSearchUsers([])
+    return this.get('searchUsers')
+  }
+
 }
 
 const UsersStore = new UserStore()
@@ -28,6 +38,12 @@ UsersStore.dispatchToken = Dispatcher.register(payload => {
     case ActionTypes.GET_USERS:
       const users = action.json
       UsersStore.setUsers(users)
+      UsersStore.emitChange()
+      break
+
+    case ActionTypes.GET_SEARCH_USERS:
+      const searchUsers = action.json
+      UsersStore.setSearchUsers(searchUsers)
       UsersStore.emitChange()
       break
   }
