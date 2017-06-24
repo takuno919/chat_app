@@ -31,7 +31,7 @@ class MessagesBox extends React.Component {
     this.setState(this.getStateFromStore())
   }
   componentDidMount() {
-    MessageAction.getMessages()
+    MessageAction.getMessages(MessagesStore.getOpenChatId())
   }
 
   render() {

@@ -2,11 +2,13 @@ module Api
   class MessagesController < ApplicationController
 
     def index
-      @messages = Message.all
+      @messages = Message.where(from:current_user.id, to:params[:to])
       render json: @messages
     end
 
     def create
+      @message = Message.create(from:current_user.id, to:params[:to], content:params[:content])
+      render json: @message
     end
   end
 end

@@ -11,6 +11,7 @@ class ChatStore extends BaseStore {
   removeChangeListener(callback) {
     this.off('change', callback)
   }
+
   setMessages(messages) {
     this.set('messages', messages)
   }
@@ -43,20 +44,28 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
   const action = payload.action
   switch (action.type) {
     case ActionTypes.GET_MESSAGES:
-      const messages = action.json
-      MessagesStore.setMessages(messages)
-      MessagesStore.emitChange()
-      break
+      {
+        const messages = action.json
+        MessagesStore.setMessages(messages)
+        MessagesStore.emitChange()
+        break
+      }
 
     case ActionTypes.POST_MESSAGE:
-      const userID = action.userID
-      messages[userID].messages.push({
-        content: action.message,
-        from: UserStore.user.id,
-        to: UserStore.user.id,
-      })
-      MessagesStore.emitChange()
-      break
+      {
+        // const userID = action.userID
+        //const content = action.content
+        const messages = MessagesStore.getMessages()
+        messages.push(
+          action.json
+          // content: action.message,
+          // from: UserStore.user.id,
+          // to: UserStore.user.id,
+          // timestamp: action.timestamp,
+        )
+        MessagesStore.emitChange()
+        break
+      }
 
     case ActionTypes.UPDATE_OPEN_CHAT_ID:
       // openChatID = action.userID

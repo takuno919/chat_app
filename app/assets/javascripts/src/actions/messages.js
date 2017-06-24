@@ -11,10 +11,11 @@ export default {
     })
   },
 
-  getMessages() {
+  getMessages(to) {
     return new Promise((resolve, reject) => {
       request
       .get('/api/messages') // 取得したいjsonがあるURLを指定する
+      .query({to: to})
       .end((error, res) => {
         if (!error && res.status === 200) { // 200はアクセスが成功した際のステータスコードです。
           const json = JSON.parse(res.text)
@@ -30,22 +31,24 @@ export default {
     })
   },
 
-  postMessage(userId, message) {
+  postMessage(content, to) {
     return new Promise((resolve, reject) => {
       request
-      .post(`${APIEndpoints.MESSAGE}`)
+      .post(`${APIEndpoints.MESSAGES}`)
       .set('X-CSRF-Token', CSRFToken())
-      .send({user_id: userId}) // これによりサーバ側に送りたいデータを送ることが出来ます。
+      .send({content: content, to: to}) // これによりサーバ側に送りたいデータを送ることが出来ます。
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleViewAction({
             type: ActionTypes.POST_MESSAGE,
-            userID: userId,
-            message: message,
-            timestamp: +new Date(),
+            // content: content,
+            // from: from,
+            // to: to,
+            // timestamp: +new Date(),
             json,
           })
+          resolve(json)
         } else {
           reject(res)
         }
