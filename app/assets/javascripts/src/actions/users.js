@@ -1,6 +1,6 @@
 import request from 'superagent'
 import Dispatcher from '../dispatcher'
-import {ActionTypes} from '../constants/app'
+import {ActionTypes, APIEndpoints, CSRFToken} from '../constants/app'
 
 export default {
   setOpenChatId(id) {
@@ -40,6 +40,51 @@ export default {
           Dispatcher.handleServerAction({
             type: ActionTypes.GET_SEARCH_USERS,
             json, // json: jsonと同じ。keyとvalueが一致する場合、このように省略出来ます。
+          })
+          resolve(json)
+        } else {
+          reject(res)
+        }
+      })
+    })
+  },
+
+  createFriendshipId(userId) {
+    return new Promise((resolve, reject) => {
+      request
+      .post(`${APIEndpoints.FRIENDSHIPS}`)
+      .set('X-CSRF-Token', CSRFToken())
+      .send({user_id: userId}) // これによりサーバ側に送りたいデータを送ることが出来ます。
+      .end((error, res) => {
+        if (!error && res.status === 200) {
+          const json = JSON.parse(res.text)
+          Dispatcher.handleViewAction({
+            type: ActionTypes.CREATE_FRIENDSHIP_ID,
+            userID: userId,
+          //   // frienshipID: FriendshipId,
+            json,
+          })
+          resolve(json)
+        } else {
+          reject(res)
+        }
+      })
+    })
+  },
+
+  destroyFriendshipId(userId) {
+    return new Promise((resolve, reject) => {
+      request
+      .delete(`${APIEndpoints.FRIENDSHIPS}/${userId}`)
+      .set('X-CSRF-Token', CSRFToken())
+      .send({user_id: userId}) // これによりサーバ側に送りたいデータを送ることが出来ます。
+      .end((error, res) => {
+        if (!error && res.status === 200) {
+          const json = JSON.parse(res.text)
+          Dispatcher.handleViewAction({
+            type: ActionTypes.DESTROY_FRIENDSHIP_ID,
+            userID: userId,
+            json,
           })
           resolve(json)
         } else {

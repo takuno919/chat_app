@@ -1,7 +1,8 @@
 import React from 'react'
 // import request from 'superagent'
 import UsersStore from '../../stores/users'
-// import UserAction from '../../actions/users'
+import UserAction from '../../actions/users'
+import MessagesStore from '../../stores/messages'
 
 class UserCandidates extends React.Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class UserCandidates extends React.Component {
   getStateFromStore() {
     return {
       searchUsers: UsersStore.getSearchUsers(),
+      friendshipId: MessagesStore.getFriendshipId(),
     }
   }
   componentWillMount() {
@@ -30,23 +32,28 @@ class UserCandidates extends React.Component {
   //   UserAction.getSearchUsers()
   // }
 
-  // hoge(e) {
-  //   this.setState({
-  //     term: e.target.value,
-  //   })
-  //   // UserActionを呼ぶ
-  //   // これとreturnをsearch.jsに移す
-  // }
+  handleUserCandidatesClick(user) {
+    UserAction.createFriendshipId(user.id).then(() => {
+      window.location.href = '/'
+    })
+  }
 
   render() {
     const searchUsers = this.state.searchUsers
+    console.log(this.state.searchUsers)
     return (
       <div>
         {searchUsers.map((user) => {
-          return <div>{user.name}</div>
+          return (
+            <div
+              key={user.name}
+              onClick={this.handleUserCandidatesClick.bind(this, user)}
+            >
+              {user.name}
+            </div>
+          )
         })}
       </div>
-
     )
   }
 }

@@ -26,6 +26,15 @@ class ChatStore extends BaseStore {
     if (!this.get('openChatId')) this.setOpenChatId(null)
     return this.get('openChatId')
   }
+
+  setFriendshipId(id) {
+    this.set('friendshipId', id)
+  }
+  getFriendshipId() {
+    if (!this.get('friendshipId')) this.setFriendshipId(null)
+    return this.get('friendshipId')
+  }
+
 }
 
 const MessagesStore = new ChatStore()
@@ -57,6 +66,16 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
     case ActionTypes.SET_OPEN_CHAT_ID:
       const openChatId = action.id
       MessagesStore.setOpenChatId(openChatId)
+      MessagesStore.emitChange()
+      break
+
+    case ActionTypes.CREATE_FRIENDSHIP_ID:
+      const friendshipId = action.friendshipID
+      MessagesStore.setFriendshipId(friendshipId)
+      MessagesStore.emitChange()
+      break
+
+    case ActionTypes.DESTROY_FRIENDSHIP_ID:
       MessagesStore.emitChange()
       break
   }

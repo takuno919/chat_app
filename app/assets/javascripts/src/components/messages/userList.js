@@ -8,7 +8,6 @@ import UsersStore from '../../stores/users'
 import UserAction from '../../actions/users'
 
 class UserList extends React.Component {
-
   constructor(props) {
     super(props)
     this.state = this.initialState
@@ -22,6 +21,7 @@ class UserList extends React.Component {
     return {
       openChatId: MessagesStore.getOpenChatId(),
       users: UsersStore.getUsers(),
+      friendshipId: MessagesStore.getFriendshipId(),
     }
   }
 
@@ -45,6 +45,13 @@ class UserList extends React.Component {
     UserAction.setOpenChatId(user.id)
   }
 
+  handleDestroyUserListClick(user, e) {
+    e.stopPropagation()
+    UserAction.destroyFriendshipId(user.id).then(() => {
+      window.location.href = '/'
+    })
+  }
+
   render() {
     const users = this.state.users
     return (
@@ -52,11 +59,19 @@ class UserList extends React.Component {
         <ul className='user-list__list'>
           {users.map((user) => {
             return (
-              <div key={user.id}
-                onClick={this.handleUserListClick.bind(this, user)}
-                style={{backgroundColor: user.id === this.state.openChatId ? 'blue' : 'initial'}}
-              >
-              {user.name}
+              <div>
+                <div key={user.id}
+                  onClick={this.handleUserListClick.bind(this, user)}
+                  style={{backgroundColor: user.id === this.state.openChatId ? 'blue' : 'initial'}}
+                >
+                  {user.name}
+                  <span
+                    onClick={this.handleDestroyUserListClick.bind(this, user)}
+                  >
+                  Delete
+                  </span>
+
+                </div>
               </div>
             )
           })}

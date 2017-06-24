@@ -5,5 +5,8 @@ module Api
       @messages = Message.all
       render json: @messages
     end
+
+    def create
+    end
   end
 end

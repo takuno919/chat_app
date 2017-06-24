@@ -27,7 +27,6 @@ class UserStore extends BaseStore {
     if (!this.get('searchUsers')) this.setSearchUsers([])
     return this.get('searchUsers')
   }
-
 }
 
 const UsersStore = new UserStore()
