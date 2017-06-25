@@ -40,7 +40,6 @@ class UserCandidates extends React.Component {
 
   render() {
     const searchUsers = this.state.searchUsers
-    console.log(this.state.searchUsers)
     return (
       <div>
         {searchUsers.map((user) => {

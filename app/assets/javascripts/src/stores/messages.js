@@ -1,7 +1,7 @@
 // stores/messages.js
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
-import UserStore from '../stores/users'
+// import UserStore from '../stores/users'
 import {ActionTypes} from '../constants/app'
 
 class ChatStore extends BaseStore {
@@ -54,7 +54,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
     case ActionTypes.POST_MESSAGE:
       {
         // const userID = action.userID
-        //const content = action.content
+        // const content = action.content
         const messages = MessagesStore.getMessages()
         messages.push(
           action.json
