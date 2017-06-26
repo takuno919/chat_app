@@ -6,6 +6,7 @@ import MessagesStore from '../../stores/messages'
 // import ChatStore from '../../stores/users'
 import UsersStore from '../../stores/users'
 import UserAction from '../../actions/users'
+import MessagesAction from '../../actions/messages'
 
 class UserList extends React.Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class UserList extends React.Component {
 
   handleUserListClick(user) {
     UserAction.setOpenChatId(user.id)
+    MessagesAction.getMessages(user.id)
   }
 
   handleDestroyUserListClick(user, e) {
