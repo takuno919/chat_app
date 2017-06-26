@@ -2,7 +2,7 @@ module Api
   class MessagesController < ApplicationController
 
     def index
-      @messages = Message.where(from:current_user.id, to:params[:to])
+      @messages = Message.where(from:current_user.id, to:params[:to]) + Message.where(from:params[:to], to:current_user.id)
       render json: @messages
     end
 

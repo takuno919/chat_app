@@ -2,7 +2,7 @@ module Api
   class UsersController < ApplicationController
 
     def index
-      @users = current_user.friends_of_from_user
+      @users = current_user.friends_of_from_user + current_user.friends_of_to_user
       render json: @users
     end
 

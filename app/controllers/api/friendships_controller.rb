@@ -1,10 +1,10 @@
 module Api
   class FriendshipsController < ApplicationController
 
-    def index
-      @friendships = Friendship.all
-      render json: @friendships
-    end
+    # def index
+    #   @friendships = Friendship.all
+    #   render json: @friendships
+    # end
 
     def create
       Friendship.create(from_user_id:current_user.id, to_user_id:params[:user_id])

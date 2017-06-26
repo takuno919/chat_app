@@ -23,6 +23,7 @@ class UserList extends React.Component {
       openChatId: MessagesStore.getOpenChatId(),
       users: UsersStore.getUsers(),
       friendshipId: MessagesStore.getFriendshipId(),
+      // receiveFriendshipId: MessageStore.receiveFriendshipId(),
     }
   }
 
