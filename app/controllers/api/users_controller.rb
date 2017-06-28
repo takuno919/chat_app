@@ -8,7 +8,6 @@ module Api
 
     def search
       term = params[:term]
-      # params[:term] ||= ""
       if term.empty?
         @users = nil
         render json: @users

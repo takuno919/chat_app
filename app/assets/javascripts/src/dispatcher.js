@@ -1,4 +1,3 @@
-// dispatcher.js
 import {Dispatcher} from 'flux'
 import assign from 'object-assign'
 

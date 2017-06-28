@@ -1,4 +1,3 @@
-// src/constants/app.js
 import keyMirror from 'keymirror'
 
 export const ActionTypes = keyMirror({

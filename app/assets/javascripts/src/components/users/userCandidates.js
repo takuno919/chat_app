@@ -1,5 +1,4 @@
 import React from 'react'
-// import request from 'superagent'
 import UsersStore from '../../stores/users'
 import UserAction from '../../actions/users'
 import MessagesStore from '../../stores/messages'
@@ -28,9 +27,6 @@ class UserCandidates extends React.Component {
   onStoreChange() {
     this.setState(this.getStateFromStore())
   }
-  // componentDidMount() {
-  //   UserAction.getSearchUsers()
-  // }
 
   handleUserCandidatesClick(user) {
     UserAction.createFriendshipId(user.id).then(() => {

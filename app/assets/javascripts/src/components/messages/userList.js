@@ -1,9 +1,5 @@
 import React from 'react'
-// import _ from 'lodash'
-// import classNames from 'classnames'
-// import Utils from '../../utils'
 import MessagesStore from '../../stores/messages'
-// import ChatStore from '../../stores/users'
 import UsersStore from '../../stores/users'
 import UserAction from '../../actions/users'
 import MessagesAction from '../../actions/messages'
@@ -23,7 +19,6 @@ class UserList extends React.Component {
       openChatId: MessagesStore.getOpenChatId(),
       users: UsersStore.getUsers(),
       friendshipId: MessagesStore.getFriendshipId(),
-      // receiveFriendshipId: MessageStore.receiveFriendshipId(),
     }
   }
 

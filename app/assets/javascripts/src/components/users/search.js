@@ -1,5 +1,4 @@
 import React from 'react'
-// import UserStore from '../../stores/users'
 import UserCandidates from './userCandidates'
 import UserAction from '../../actions/users'
 
@@ -14,8 +13,7 @@ class Search extends React.Component {
     this.setState({
       term: term,
     })
-    UserAction.getSearchUsers(term) // UserActionを呼ぶ
-    // これとreturnをsearch.jsに移す
+    UserAction.getSearchUsers(term)
   }
 
   render() {

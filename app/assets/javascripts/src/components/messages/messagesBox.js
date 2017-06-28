@@ -1,9 +1,6 @@
 import React from 'react'
-// import classNames from 'classNames'
 import MessagesStore from '../../stores/messages'
 import ReplyBox from '../../components/messages/replyBox'
-// import UserStore from '../../stores/users'
-// import Utils from '../../utils'
 
 class MessagesBox extends React.Component {
 
@@ -30,9 +27,6 @@ class MessagesBox extends React.Component {
   onStoreChange() {
     this.setState(this.getStateFromStore())
   }
-  // componentDidMount() {
-  //   MessageAction.getMessages(MessagesStore.getOpenChatId())
-  // }
 
   render() {
     const messages = this.state.messages
