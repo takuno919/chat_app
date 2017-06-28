@@ -18,6 +18,7 @@ class MessagesBox extends React.Component {
     const messages = MessagesStore.getMessages()
     return {
       messages: messages,
+      openChatId: MessagesStore.getOpenChatId(),
     }
   }
   componentWillMount() {
@@ -39,12 +40,19 @@ class MessagesBox extends React.Component {
         <div className='message-box'>
           <ul className='message-box__list'>
             {messages.map((message) => {
+              const messageFromFriend = message.from === this.state.openChatId
               return (
-                <div key={message.id}>{message.content}</div>
+                <div key={message.id}>
+                  <div
+                    style={{textAlign: messageFromFriend ? 'left': 'right'}}
+                  >
+                    {message.content}
+                  </div>
+                </div>
               )
             })}
           </ul>
-          <ReplyBox />,
+          <ReplyBox />
         </div>
       )
   }

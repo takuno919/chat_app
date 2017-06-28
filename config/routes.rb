@@ -1,8 +1,6 @@
 Rails.application.routes.draw do
-  devise_for :users
-  root 'messages#index'
-  get 'messages/new'
-  get 'users/new'
+  # get 'messages/new'
+  # get 'users/new'
   get 'users/search'
 
   namespace :api, { format: 'json' } do
@@ -12,6 +10,16 @@ Rails.application.routes.draw do
       collection do
         get :search
       end
+    end
+  end
+
+  devise_for :users
+  devise_scope :user do
+    authenticated :user do
+      root to: 'messages#index', as: 'authenticated_root'
+    end
+    unauthenticated :user do
+      root to: 'devise/sessions#new', as: 'unauthenticated_root'
     end
   end
 
