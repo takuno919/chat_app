@@ -32,7 +32,7 @@ class UserStore extends BaseStore {
 const UsersStore = new UserStore()
 
 UsersStore.dispatchToken = Dispatcher.register(payload => {
-  const action = payload.action
+  const {action} = payload
   switch (action.type) {
     case ActionTypes.GET_USERS:
       const users = action.json

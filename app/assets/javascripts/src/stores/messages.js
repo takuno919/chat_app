@@ -52,9 +52,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
     case ActionTypes.POST_MESSAGE:
       {
         const messages = MessagesStore.getMessages()
-        messages.push(
-          action.json
-        )
+        messages.push(action.json)
         MessagesStore.emitChange()
         break
       }
@@ -70,7 +68,7 @@ MessagesStore.dispatchToken = Dispatcher.register(payload => {
       break
 
     case ActionTypes.CREATE_FRIENDSHIP:
-      const friendship = action.friendship
+      const {friendship} = action
       MessagesStore.setFriendship(friendship)
       MessagesStore.emitChange()
       break

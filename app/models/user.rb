@@ -1,9 +1,4 @@
 class User < ActiveRecord::Base
-  has_many :messages_of_from_user, :class_name => 'Message', :foreign_key => 'from_user_id', :dependent => :destroy
-  has_many :messages_of_to_user, :class_name => 'Message', :foreign_key => 'to_user_id', :dependent => :destroy
-  has_many :messagefriends_of_from_user, :through => :messages_of_from_user, :source => 'to_user'
-  has_many :messagefriends_of_to_user, :through => :messages_of_to_user, :source => 'from_user'
-
   has_many :friendships_of_from_user, :class_name => 'Friendship', :foreign_key => 'from_user_id', :dependent => :destroy
   has_many :friendships_of_to_user, :class_name => 'Friendship', :foreign_key => 'to_user_id', :dependent => :destroy
   has_many :friends_of_from_user, :through => :friendships_of_from_user, :source => 'to_user'

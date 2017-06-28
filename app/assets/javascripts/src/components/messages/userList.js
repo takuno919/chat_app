@@ -63,12 +63,12 @@ class UserList extends React.Component {
                   style={{backgroundColor: user.id === this.state.openChatId ? 'blue' : 'initial'}}
                 >
                   {user.name}
-                    <span
+                  <span
                     onClick={this.handleDestroyUserListClick.bind(this, user)}
                     style={{float: 'right'}}
                     >
                       Delete
-                    </span>
+                  </span>
                 </div>
               </div>
             )

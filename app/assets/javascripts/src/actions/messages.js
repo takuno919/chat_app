@@ -14,7 +14,7 @@ export default {
     return new Promise((resolve, reject) => {
       request
       .get('/api/messages')
-      .query({to: to})
+      .query({to})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)

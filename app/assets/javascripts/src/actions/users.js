@@ -33,7 +33,7 @@ export default {
     return new Promise((resolve, reject) => {
       request
       .get('/api/users/search')
-      .query({term: term})
+      .query({term})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
@@ -60,7 +60,7 @@ export default {
           const json = JSON.parse(res.text)
           Dispatcher.handleViewAction({
             type: ActionTypes.CREATE_FRIENDSHIP,
-            userId: userId,
+            userId,
             json,
           })
           resolve(json)
@@ -82,7 +82,7 @@ export default {
           const json = JSON.parse(res.text)
           Dispatcher.handleViewAction({
             type: ActionTypes.DESTROY_FRIENDSHIP,
-            userID: userId,
+            userId,
             json,
           })
           resolve(json)
