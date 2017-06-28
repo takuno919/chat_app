@@ -66,8 +66,8 @@ class UserList extends React.Component {
                   <span
                     onClick={this.handleDestroyUserListClick.bind(this, user)}
                     style={{float: 'right'}}
-                    >
-                      Delete
+                  >
+                    Delete
                   </span>
                 </div>
               </div>
