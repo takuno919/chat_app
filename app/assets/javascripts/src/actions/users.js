@@ -49,18 +49,18 @@ export default {
     })
   },
 
-  createFriendshipId(userId) {
+  createFriendship(userId) {
     return new Promise((resolve, reject) => {
       request
-      .post(`${APIEndpoints.FRIENDSHIPS}`)
+      .post(APIEndpoints.FRIENDSHIPS)
       .set('X-CSRF-Token', CSRFToken())
       .send({user_id: userId})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleViewAction({
-            type: ActionTypes.CREATE_FRIENDSHIP_ID,
-            userID: userId,
+            type: ActionTypes.CREATE_FRIENDSHIP,
+            userId: userId,
             json,
           })
           resolve(json)
@@ -71,17 +71,17 @@ export default {
     })
   },
 
-  destroyFriendshipId(userId) {
+  destroyFriendship(userId) {
     return new Promise((resolve, reject) => {
       request
       .delete(`${APIEndpoints.FRIENDSHIPS}/${userId}`)
       .set('X-CSRF-Token', CSRFToken())
-      .send({user_id: userId}) 
+      .send({user_id: userId})
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)
           Dispatcher.handleViewAction({
-            type: ActionTypes.DESTROY_FRIENDSHIP_ID,
+            type: ActionTypes.DESTROY_FRIENDSHIP,
             userID: userId,
             json,
           })

@@ -1,7 +1,6 @@
 import React from 'react'
 import MessagesStore from '../../stores/messages'
 import MessagesAction from '../../actions/messages'
-// import UserStore from '../../stores/users'
 
 class ReplyBox extends React.Component {
 
@@ -36,7 +35,7 @@ class ReplyBox extends React.Component {
       <div className='reply-box'>
         <input
           value={ this.state.value }
-          onKeyDown={ this.handleKeyDown.bind(this) } 
+          onKeyDown={ this.handleKeyDown.bind(this) }
           onChange={ this.updateValue.bind(this) }
           className='reply-box__input'
           placeholder='Type message to reply..'

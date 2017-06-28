@@ -18,7 +18,7 @@ class UserList extends React.Component {
     return {
       openChatId: MessagesStore.getOpenChatId(),
       users: UsersStore.getUsers(),
-      friendshipId: MessagesStore.getFriendshipId(),
+      friendship: MessagesStore.getFriendship(),
     }
   }
 
@@ -45,30 +45,30 @@ class UserList extends React.Component {
 
   handleDestroyUserListClick(user, e) {
     e.stopPropagation()
-    UserAction.destroyFriendshipId(user.id).then(() => {
+    UserAction.destroyFriendship(user.id).then(() => {
       window.location.href = '/'
     })
   }
 
   render() {
-    const users = this.state.users
+    const {users} = this.state
     return (
       <div className='user-list'>
         <ul className='user-list__list'>
           {users.map((user) => {
             return (
-              <div>
-                <div key={user.id}
+              <div key={user.id}>
+                <div
                   onClick={this.handleUserListClick.bind(this, user)}
                   style={{backgroundColor: user.id === this.state.openChatId ? 'blue' : 'initial'}}
                 >
                   {user.name}
-                  <span
+                    <span
                     onClick={this.handleDestroyUserListClick.bind(this, user)}
-                  >
-                  Delete
-                  </span>
-
+                    style={{float: 'right'}}
+                    >
+                      Delete
+                    </span>
                 </div>
               </div>
             )

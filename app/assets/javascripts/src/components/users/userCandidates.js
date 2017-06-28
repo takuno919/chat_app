@@ -15,7 +15,7 @@ class UserCandidates extends React.Component {
   getStateFromStore() {
     return {
       searchUsers: UsersStore.getSearchUsers(),
-      friendshipId: MessagesStore.getFriendshipId(),
+      friendship: MessagesStore.getFriendship(),
     }
   }
   componentWillMount() {
@@ -29,7 +29,7 @@ class UserCandidates extends React.Component {
   }
 
   handleUserCandidatesClick(user) {
-    UserAction.createFriendshipId(user.id).then(() => {
+    UserAction.createFriendship(user.id).then(() => {
       window.location.href = '/'
     })
   }
@@ -41,7 +41,7 @@ class UserCandidates extends React.Component {
         {searchUsers.map((user) => {
           return (
             <div
-              key={user.name}
+              key={user.id}
               onClick={this.handleUserCandidatesClick.bind(this, user)}
             >
               {user.name}

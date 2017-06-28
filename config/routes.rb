@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  # get 'messages/new'
-  # get 'users/new'
   get 'users/search'
 
   namespace :api, { format: 'json' } do
@@ -23,6 +21,4 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :messages
-  resources :users
 end

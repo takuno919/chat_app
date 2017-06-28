@@ -11,7 +11,7 @@ class Search extends React.Component {
   onInputChange(e) {
     const term = e.target.value
     this.setState({
-      term: term,
+      term,
     })
     UserAction.getSearchUsers(term)
   }

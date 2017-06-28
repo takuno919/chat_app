@@ -29,16 +29,16 @@ class MessagesBox extends React.Component {
   }
 
   render() {
-    const messages = this.state.messages
+    const {messages, openChatId} = this.state
     return (
         <div className='message-box'>
           <ul className='message-box__list'>
             {messages.map((message) => {
-              const messageFromFriend = message.from === this.state.openChatId
+              const isMessageFromFriend = message.from === openChatId
               return (
                 <div key={message.id}>
                   <div
-                    style={{textAlign: messageFromFriend ? 'left': 'right'}}
+                    style={{textAlign: isMessageFromFriend ? 'left' : 'right'}}
                   >
                     {message.content}
                   </div>
