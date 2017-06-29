@@ -1,75 +1,6 @@
-// stores/messages.js
 import Dispatcher from '../dispatcher'
 import BaseStore from '../base/store'
-import UserStore from '../stores/user' // 追記
-
-const messages = {
-  2: {
-    user: {
-      profilePicture: 'https://avatars0.githubusercontent.com/u/7922109?v=3&s=460',
-      id: 2,
-      name: 'Ryan Clark',
-      status: 'online',
-    },
-    lastAccess: {
-      recipient: 1424469794050,
-      currentUser: 1424469794080,
-    },
-    messages: [
-      {
-        contents: 'Hey!',
-        from: 2,
-        timestamp: 1424469793023,
-      },
-      {
-        contents: 'Hey, what\'s up?',
-        from: 1,
-        timestamp: 1424469794000,
-      },
-    ],
-  },
-  3: {
-    user: {
-      read: true,
-      profilePicture: 'https://avatars3.githubusercontent.com/u/2955483?v=3&s=460',
-      name: 'Jilles Soeters',
-      id: 3,
-      status: 'online',
-    },
-    lastAccess: {
-      recipient: 1424352522000,
-      currentUser: 1424352522080,
-    },
-    messages: [
-      {
-        contents: 'Want a game of ping pong?',
-        from: 3,
-        timestamp: 1424352522000,
-      },
-    ],
-  },
-  4: {
-    user: {
-      name: 'Todd Motto',
-      id: 4,
-      profilePicture: 'https://avatars1.githubusercontent.com/u/1655968?v=3&s=460',
-      status: 'online',
-    },
-    lastAccess: {
-      recipient: 1424423579000,
-      currentUser: 1424423574000,
-    },
-    messages: [
-      {
-        contents: 'Please follow me on twitter I\'ll pay you',
-        timestamp: 1424423579000,
-        from: 4,
-      },
-    ],
-  },
-}
-
-var openChatID = parseInt(Object.keys(messages)[0], 10)
+import {ActionTypes} from '../constants/app'
 
 class ChatStore extends BaseStore {
   addChangeListener(callback) {
@@ -78,37 +9,71 @@ class ChatStore extends BaseStore {
   removeChangeListener(callback) {
     this.off('change', callback)
   }
-  getOpenChatUserID() {
-    return openChatID
+
+  setMessages(messages) {
+    this.set('messages', messages)
   }
-  getChatByUserID(id) {
-    return messages[id]
+  getMessages() {
+    if (!this.get('messages')) this.setMessages([])
+    return this.get('messages')
   }
-  getAllChats() {
-    return messages
+
+  setOpenChatId(id) {
+    this.set('openChatId', id)
   }
+  getOpenChatId() {
+    if (!this.get('openChatId')) this.setOpenChatId(null)
+    return this.get('openChatId')
+  }
+
+  setFriendship(id) {
+    this.set('friendship', id)
+  }
+  getFriendship() {
+    if (!this.get('friendship')) this.setFriendship(null)
+    return this.get('friendship')
+  }
+
 }
+
 const MessagesStore = new ChatStore()
 
 MessagesStore.dispatchToken = Dispatcher.register(payload => {
-  const action = payload.action
-
+  const {action} = payload
   switch (action.type) {
-    case 'updateOpenChatID':
-      openChatID = action.userID
-      messages[openChatID].lastAccess.currentUser = +new Date() // 追記
+    case ActionTypes.GET_MESSAGES:
+      {
+        const messages = action.json
+        MessagesStore.setMessages(messages)
+        MessagesStore.emitChange()
+        break
+      }
+
+    case ActionTypes.POST_MESSAGE:
+      {
+        const messages = MessagesStore.getMessages()
+        messages.push(action.json)
+        MessagesStore.emitChange()
+        break
+      }
+
+    case ActionTypes.UPDATE_OPEN_CHAT_ID:
       MessagesStore.emitChange()
       break
 
-      // 追記
-    case 'sendMessage':
-      const userID = action.userID
-      messages[userID].messages.push({
-        contents: action.message,
-        timestamp: action.timestamp,
-        from: UserStore.user.id,
-      })
-      messages[userID].lastAccess.currentUser = +new Date() // 追記
+    case ActionTypes.SET_OPEN_CHAT_ID:
+      const openChatId = action.id
+      MessagesStore.setOpenChatId(openChatId)
+      MessagesStore.emitChange()
+      break
+
+    case ActionTypes.CREATE_FRIENDSHIP:
+      const {friendship} = action
+      MessagesStore.setFriendship(friendship)
+      MessagesStore.emitChange()
+      break
+
+    case ActionTypes.DESTROY_FRIENDSHIP:
       MessagesStore.emitChange()
       break
   }

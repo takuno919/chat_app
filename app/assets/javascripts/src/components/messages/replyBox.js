@@ -1,6 +1,6 @@
 import React from 'react'
-import MessagesStore from '../../stores/messages'  // 追記
-import MessagesAction from '../../actions/messages' // 追記
+import MessagesStore from '../../stores/messages'
+import MessagesAction from '../../actions/messages'
 
 class ReplyBox extends React.Component {
 
@@ -17,7 +17,7 @@ class ReplyBox extends React.Component {
 
   handleKeyDown(e) {
     if (e.keyCode === 13) {
-      MessagesAction.sendMessage(MessagesStore.getOpenChatUserID(), this.state.value)
+      MessagesAction.postMessage(this.state.value, MessagesStore.getOpenChatId())
       this.setState({
         value: '',
       })
@@ -34,8 +34,8 @@ class ReplyBox extends React.Component {
     return (
       <div className='reply-box'>
         <input
-          value={ this.state.value }  // 追記
-          onKeyDown={ this.handleKeyDown.bind(this) } // 追記
+          value={ this.state.value }
+          onKeyDown={ this.handleKeyDown.bind(this) }
           onChange={ this.updateValue.bind(this) }
           className='reply-box__input'
           placeholder='Type message to reply..'
