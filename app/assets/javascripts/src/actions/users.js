@@ -6,14 +6,14 @@ export default {
   setOpenChatId(id) {
     Dispatcher.handleViewAction({
       type: ActionTypes.SET_OPEN_CHAT_ID,
-      id: id,
+      id,
     })
   },
 
   getUsers() {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/users')
+      .get(APIEndpoints.USERS)
       .end((error, res) => {
         if (!error && res.status === 200) {
           const json = JSON.parse(res.text)

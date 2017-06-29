@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
-  get 'users/search'
+  resources :users, only: [] do
+    collection do
+      get :search
+    end
+  end
 
   namespace :api, { format: 'json' } do
-    resources :messages
-    resources :friendships
-    resources :users do
+    resources :messages, only: [:index, :create]
+    resources :friendships, only: [:create, :destroy]
+    resources :users, only: [:index] do
       collection do
         get :search
       end

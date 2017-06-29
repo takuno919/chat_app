@@ -39,7 +39,7 @@ class ChatStore extends BaseStore {
 const MessagesStore = new ChatStore()
 
 MessagesStore.dispatchToken = Dispatcher.register(payload => {
-  const action = payload.action
+  const {action} = payload
   switch (action.type) {
     case ActionTypes.GET_MESSAGES:
       {

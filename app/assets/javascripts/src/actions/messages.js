@@ -13,7 +13,7 @@ export default {
   getMessages(to) {
     return new Promise((resolve, reject) => {
       request
-      .get('/api/messages')
+      .get(APIEndpoints.MESSAGES)
       .query({to})
       .end((error, res) => {
         if (!error && res.status === 200) {
@@ -33,7 +33,7 @@ export default {
   postMessage(content, to) {
     return new Promise((resolve, reject) => {
       request
-      .post(`${APIEndpoints.MESSAGES}`)
+      .post(APIEndpoints.MESSAGES)
       .set('X-CSRF-Token', CSRFToken())
       .send({content, to})
       .end((error, res) => {

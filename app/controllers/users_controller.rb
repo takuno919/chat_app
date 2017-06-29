@@ -1,4 +1,4 @@
 class UsersController < ApplicationController
-  def new
+  def search
   end
 end
